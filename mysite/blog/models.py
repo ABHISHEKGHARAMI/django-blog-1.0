@@ -26,9 +26,7 @@ class Post(models.Model):
     # meta data for the model
     class Meta:
         ordering = ['-publish']
-        indexes = models.Index(
-            fields=['-publish'],
-        )
+        indexes = models.Index(fields=['-publish']),
     
     def __str__(self):
         return self.title
