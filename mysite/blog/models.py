@@ -4,8 +4,14 @@ from django.conf import settings
 
 # Create your models here.
 
+class PublishManager(models.Manager):
+    def get_queryset(self):
+        return (super().get_queryset().filter(status=Post.status.PUBLISHED))
+
 
 class Post(models.Model):
+    
+    
     
     # adding the choice field for the post model 
     class Status(models.TextChoices):
