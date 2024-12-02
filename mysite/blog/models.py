@@ -12,7 +12,8 @@ class PublishManager(models.Manager):
 class Post(models.Model):
     
     
-    
+    objects = models.Manager()
+    published = PublishManager()
     # adding the choice field for the post model 
     class Status(models.TextChoices):
         DRAFT = 'DF' ,'Draft'
