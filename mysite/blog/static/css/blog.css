@@ -19,3 +19,13 @@ h2 {
     font-weight: normal;
     margin: 30px 0 0;
 }
+
+
+/* for the style for date in the date and author */
+
+p.date {
+    color: #ccc;
+    font-family: Georgia,  serif;
+    font-size: 12px;
+    font-style: italic;
+}
