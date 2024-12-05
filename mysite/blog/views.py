@@ -16,15 +16,18 @@ def post_list(request):
     
     
 # second view for the detail of the specific post
-def post_detail(request,id):
+def post_detail(request,year,month,day,post):
     """try:
         post = Post.objects.get(id=id)
     except Exception:
         return Http404('error occurred during the value of the data...')"""
         
     post = get_object_or_404(Post,
-                             id=id,
-                             status=Post.Status.PUBLISHED)
+                             status=Post.Status.PUBLISHED,
+                             slug=post,
+                             publish__year=year,
+                             publish__month=month,
+                             publish__day=day)
     
     return render(request,'blog/post/detail.html',{
         'post':post
