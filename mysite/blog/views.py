@@ -3,7 +3,7 @@ from django.core.paginator import Paginator , EmptyPage ,PageNotAnInteger
 from .models import Post
 from django.http import Http404
 from django.views.generic import ListView
-
+from .forms import EmailPostForm
 # Create your views here.
 
 # first view for create all the get request for the posts in it
@@ -52,3 +52,31 @@ def post_detail(request,year,month,day,post):
     return render(request,'blog/post/detail.html',{
         'post':post
     })
+
+
+# view for the post share for the user
+def post_share(request,post_id):
+    # get the post using the post id
+    posts = get_object_or_404(Post,
+                              id=post_id,
+                              status= Post.Status.PUBLISHED)
+    # now go for the form data
+    if request.method == 'POST':
+        # get the data
+        form = EmailPostForm(request.POST)
+        
+        if form.is_valid():
+            # cleaned data
+            cd = form.cleaned_data
+            
+            # here goes for the email sending.
+            
+    else:
+        form = EmailPostForm()
+        
+    return render(request,
+                  'blog/post/share.html',
+                  {
+                      'posts':posts,
+                      'form':form
+                  })
