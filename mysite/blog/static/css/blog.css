@@ -49,3 +49,12 @@ p.date {
     margin: 40px 0;
     font-weight: bold;
 }
+
+input[type=submit] {
+    font-weight: bold;
+    background: #2caa80;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
