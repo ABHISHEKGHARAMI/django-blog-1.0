@@ -21,4 +21,17 @@
          {{total_comments}} comments {{total_comments|pluralize}}
       </h2>
    {% endwith %}
+
+   {% comment %} printing the comment section. {% endcomment %}
+   {% for comment in comments %}
+      <div class="comment">
+         <p class="info">
+            comment {{ forloop.counter }} by {{ comment.name }}
+            {{ comment.created }}
+         </p>
+         {{ comment.body| linebreaks }}
+      </div>
+      {% empty %}
+      <p>There is no comments.</p>
+   {% endfor %}
 {% endblock content %}
