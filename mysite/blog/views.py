@@ -4,6 +4,7 @@ from .models import Post
 from django.http import Http404
 from django.views.generic import ListView
 from .forms import EmailPostForm
+from django.core.mail import send_mail
 # Create your views here.
 
 # first view for create all the get request for the posts in it
@@ -57,9 +58,10 @@ def post_detail(request,year,month,day,post):
 # view for the post share for the user
 def post_share(request,post_id):
     # get the post using the post id
-    posts = get_object_or_404(Post,
+    post = get_object_or_404(Post,
                               id=post_id,
                               status= Post.Status.PUBLISHED)
+    sent = False
     # now go for the form data
     if request.method == 'POST':
         # get the data
@@ -70,6 +72,27 @@ def post_share(request,post_id):
             cd = form.cleaned_data
             
             # here goes for the email sending.
+            post_url = request.build_absolute_uri(
+                post.get_absolute_url()
+            )
+            
+            subject = (
+                f"{cd['name']} ({cd['email']}) "
+                f"recommend the post by {post.title}"
+            )
+            
+            message = (
+                f"read {post.title} at {post_url} \n \n"
+                f"{cd['name']}\'s comments: {cd['comments']}"
+            )
+            
+            # sending the mail
+            send_mail(subject=subject,
+                      message=message,
+                      from_email=None,
+                      recipient_list=[cd['to']])
+            
+            sent = True
             
     else:
         form = EmailPostForm()
@@ -77,6 +100,7 @@ def post_share(request,post_id):
     return render(request,
                   'blog/post/share.html',
                   {
-                      'posts':posts,
-                      'form':form
+                      'post':post,
+                      'form':form,
+                      'sent':sent
                   })
