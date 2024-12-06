@@ -8,14 +8,15 @@
 {% block content %}
    {% if sent %}
      <h1>Email sent successfully.</h1>
-     <p>
+     <p class="date">
         {{post.title}} was successfully sent to {{form.cleaned_data.to}}
      </p>
    {% else %}
+     <h1>Share "{{ post.title }}" by e-mail</h1>
      <form method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <input type="submit" name="Send Email">
+        <input type="submit" value="Send Email">
      </form>
    {% endif %}
 {% endblock content %}
