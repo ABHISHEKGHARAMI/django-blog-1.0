@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -40,6 +41,10 @@ class Post(models.Model):
     objects = models.Manager()
     # custom manager for the model
     published = PublishManager()
+    
+    # for the tags for the user for similar search
+    tags = TaggableManager()
+    
     
     # meta data for the model
     class Meta:
