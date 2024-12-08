@@ -9,8 +9,8 @@ def total_tags():
     return Post.published.count()
 
 
-@register.inclusion_tag("blog/post/latest.html")
-def latest_tag(count=5):
+@register.inclusion_tag("blog/post/latest_posts.html")
+def show_latest_posts(count=5):
     latest_posts = Post.published.order_by('-publish')[:5]
     
     return {
