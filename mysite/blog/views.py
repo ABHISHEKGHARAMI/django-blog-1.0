@@ -6,34 +6,40 @@ from django.views.generic import ListView
 from .forms import EmailPostForm , CommentForm
 from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
+from taggit.models import Tag
 # Create your views here.
 
 # first view for create all the get request for the posts in it
-# def post_list(request):
-#     post_list = Post.objects.all()
-#     paginator = Paginator(post_list,3)
-#     page_number = request.GET.get('page',1)
-#     #using try and catch block to prevention is empty page or if user try tot enter the wrong page number
-#     try:
-#         posts = paginator.page(page_number)
-#     except EmptyPage:
-#         posts = paginator.page(paginator.num_pages)
-#     except PageNotAnInteger:
-#         # then goes to the page 1
-#         posts = paginator.page(1)
-#     #try to render it
-#     return render(request,
-#                   'blog/post/list.html',{
-#                       'posts':posts
-#                   })
+def post_list(request,tag_slug=None):
+    post_list = Post.objects.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag,slug=tag_slug)
+        post_list =post_list.filter(tags__in=[tag])
+    paginator = Paginator(post_list,3)
+    page_number = request.GET.get('page',1)
+    #using try and catch block to prevention is empty page or if user try tot enter the wrong page number
+    try:
+        posts = paginator.page(page_number)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        # then goes to the page 1
+        posts = paginator.page(1)
+    #try to render it
+    return render(request,
+                  'blog/post/list.html',{
+                      'posts':posts,
+                      'tag': tag
+                  })
 
 
 # now going to use the class based views for the user
-class PostListView(ListView):
-    queryset = Post.published.all()
-    context_object_name = 'posts'
-    paginate_by = 3
-    template_name = 'blog/post/list.html'
+# class PostListView(ListView):
+#     queryset = Post.published.all()
+#     context_object_name = 'posts'
+#     paginate_by = 3
+#     template_name = 'blog/post/list.html'
     
     
     
