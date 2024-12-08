@@ -5,5 +5,5 @@ from ..models import Post
 register = template.Library()
 
 @register.simple_tag
-def template_tags():
+def total_tags():
     return Post.published.count()
