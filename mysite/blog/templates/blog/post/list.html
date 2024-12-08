@@ -14,6 +14,12 @@
         <a href="{{post.get_absolute_url}}">{{post.title}}</a>
       </h2>
 
+
+      {% comment %} for the tag for the user to see the tag {% endcomment %}
+      <p class="tags">
+        Tags : {{post.tags.all | join: ", "}}
+      </p>
+
       <p class="date">
         Published {{post.publish}} by {{post.author}}
       </p>
