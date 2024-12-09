@@ -22,7 +22,7 @@ def show_latest_posts(count=5):
     
 # recommend for tags for most commend tag
 @register.simple_tag
-def get_recommend_posts(count=5):
+def get_comment_posts(count=5):
     return Post.published.annotate(
         total_comments = Count('comments')
     ).order_by('-total_comments')[:5]

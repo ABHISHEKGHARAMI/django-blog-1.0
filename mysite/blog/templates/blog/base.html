@@ -33,6 +33,15 @@
             </p>
             <h2>Latest Posts</h2>
             {% show_latest_posts 3 %}
+            <h2>Most recommend posts</h2>
+            {% get_comment_posts most_comment_post %}
+            <ul>
+                {% for post in most_comment_post %}
+                  <li>
+                    <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+                  </li>
+                {% endfor %}
+            </ul>
         </div>
 
     </body>
