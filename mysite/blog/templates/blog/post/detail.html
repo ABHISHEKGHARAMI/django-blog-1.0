@@ -36,7 +36,7 @@
    {% for comment in comments %}
       <div class="comment">
          <p class="info">
-            comment {{ forloop.counter }} by {{ comment.name }}
+            --by {{ comment.name }}
             {{ comment.created }}
          </p>
          {{ comment.body| linebreaks }}
