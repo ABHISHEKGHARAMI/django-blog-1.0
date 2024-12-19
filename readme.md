@@ -12,8 +12,8 @@ This is a simple blog application built with Django. It allows users to view, sh
 
 ## Requirements
 
-- Python 3.x
-- Django 3.x or higher
+- Python 3.10
+- Django 5.1 or higher
 - PostgreSQL (or another database backend)
 - Django Taggit for managing tags on posts
 
