@@ -30,7 +30,9 @@
       </p>
 
       <p class="date">
-        Published {{post.publish}} by {{post.author}}
+        Published {{post.publish}} by <a href="{% url 'author_details' post.author.username %}">
+                            {{ post.author.username }}
+                        </a>
       </p>
 
       {{post.body | markdown | truncatewords:30 }}

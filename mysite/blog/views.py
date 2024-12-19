@@ -1,6 +1,6 @@
 from django.shortcuts import render ,get_object_or_404
 from django.core.paginator import Paginator , EmptyPage ,PageNotAnInteger
-from .models import Post
+from .models import Post , Profile
 from django.http import Http404
 from django.views.generic import ListView
 from .forms import EmailPostForm , CommentForm
@@ -161,5 +161,18 @@ def post_comment(request,post_id):
             'post':post,
             'form':form,
             'comment':comment
+        }
+    )
+    
+# views for author details
+def author_details(request,username):
+    author = get_object_or_404(Profile,username=username)
+    posts = Post.objects.filter(author=author, status=Post.Status.PUBLISHED)
+    return render(
+        request,
+        'blog/author_details.html',
+        {
+            'author':author,
+            'posts':posts
         }
     )
