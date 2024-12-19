@@ -23,3 +23,15 @@ This is a simple blog application built with Django. It allows users to view, sh
 ```bash
 git clone https://github.com/ABHISHEKGHARAMI/django-blog-1.0/
 cd mysite
+
+
+
+### Step 2: Install Dependencies
+
+Before running the project, you need to install the necessary dependencies. It's recommended to use a virtual environment to manage the dependencies. Follow these steps:
+
+#### 2.1. Create a Virtual Environment
+
+If you don't have `virtualenv` installed, you can install it using `pip`:
+```bash
+pip install virtualenv
